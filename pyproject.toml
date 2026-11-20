@@ -1,0 +1,39 @@
+[project]
+name = "clouds"
+description = "e440 thermo nores"
+authors = [
+  { name="Philip Austin", email="paustin@eoas.ubc.ca" },
+]
+
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+authors = ["Phil Austin <paustin@eos.ubc.ca>"]
+name = "clouds"
+
+[tool.pixi.dependencies]
+python = ">3.12"
+numpy = "*"
+scipy = "*"
+pip = "*"
+zarr = "*"
+git = "*"
+jupyterlab = "*"
+jupyterlab-myst = "*"
+jupytext = "*"
+pythia-datasets = "*"
+metpy = "*"
+netcdf4 = "*"
+hatch = ">=1.16.3,<2"
+ghp-import = ">=2.1.0,<3"
+pytz = ">=2025.2,<2026"
+jupyter-book = "*"
+mystmd = ">=1.13.0,<2"
+typst = ">=0.15.1,<0.16"
+pandoc = ">=3.14,<4"
+
+[tool.pixi.pypi-dependencies]
+cloudlib = { git = "https://github.com/phaustin/cloudlib.git" }
+
+
