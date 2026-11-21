@@ -1,0 +1,34 @@
+/* Custom styles for the E440 cloud modeling site.
+   Loaded via site.options.style in myst.yml. */
+
+/* Serif body text for long-form notes; headings stay sans-serif. */
+article {
+  font-family: "Source Serif 4", "Georgia", "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* UBC blue headings in light mode. */
+article h1,
+article h2,
+article h3 {
+  color: #002145;
+}
+
+/* Lighter blue in dark mode so the headings stay readable. */
+html.dark article h1,
+html.dark article h2,
+html.dark article h3 {
+  color: #8fb8e8;
+}
+
+/* Give display equations a little more breathing room. */
+article .math-display,
+article .katex-display {
+  margin: 1.25em 0;
+}
+
+/* Slightly rounder admonitions. */
+.myst-admonition {
+  border-radius: 6px;
+}
