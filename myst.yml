@@ -1,13 +1,13 @@
 # See docs at: https://mystmd.org/guide/frontmatter
 version: 1
 project:
-  title: ATSC 405
-  description: Website for EOAS ATSC 405
+  title: Cloud modeling
+  description: E440 cloud modeling notes
   authors:
   - name: Philip Austin
     email: paustin@eoas.ubc.ca
   copyright: '2026'
-  github: 'https://github.com/phaustin/a405'
+  github: 'https://github.com/phaustin/e440_clouds'
   exclude:
   - .jupyter_cache/*
   - _build
@@ -15,10 +15,21 @@ project:
   - .DS_Store
   - '*.ipynb_checkpoints'
   toc:
-  - file: latex/internal_energy_notes.md
-    title: Week 2 - First law of thermodynamics
+  - file: pages/index.md
+    title: test title
+  - file: pages/adiabat.md
+    children:
+    - file: pages/internal_energy_notes.md
+      title: intro thermodynamics
+    - file: pages/conservation_laws.md
+    - file: pages/bulk_models.md
+      
+
 site:
   template: book-theme
   options:
     folders: true
-    hide_branding: true
+    style: css/custom.css
+    logo_text: UBC EOAS 440
+  parts:
+    primary_sidebar_footer: parts/sidebar.md
