@@ -147,6 +147,20 @@ def make_skewT():
 skew=make_skewT()
 ```
 
-```{code-cell} ipython3
+Bolton
 
-```
+$$
+e_s(T)=6.112 \exp \left(\frac{17.67 T}{T+243.5}\right)
+$$
+
++++
+
+Murphy-Koop 2005
+
+$$
+P_i=\exp \left(9.550426-\frac{5723.265}{T}+3.53068 \ln (T)-0.00728332 T\right)
+$$
+
++++
+
+https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3899
