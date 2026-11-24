@@ -37,14 +37,37 @@ Here we summarize results we generated in the [Lecture on radiative equilibrium]
 import numpy as np
 import matplotlib.pyplot as plt
 import xarray as xr
+from pathlib import Path
+import pandas as pd
 from metpy.plots import SkewT
 #  This code is used just to create the skew-T plot of global, annual mean air temperature
-ncep_url = "http://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/ncep.reanalysis.derived/"
-ncep_air = xr.open_dataset( ncep_url + "pressure/air.mon.1981-2010.ltm.nc", use_cftime=True)
-#  Take global, annual average 
-coslat = np.cos(np.deg2rad(ncep_air.lat))
-weight = coslat / coslat.mean(dim='lat')
-Tglobal = (ncep_air.air * weight).mean(dim=('lat','lon','time'))
+
+# Cache the global-mean profile locally so we only hit the NOAA server once.
+# Delete the csv file (or set use_cache = False) to force a fresh download.
+use_cache = True
+tglobal_csv = Path("Tglobal_ncep.csv")
+
+if use_cache and tglobal_csv.exists():
+    df = pd.read_csv(tglobal_csv)
+    Tglobal = xr.DataArray(
+        df["air"].values,
+        coords={"level": df["level"].values},
+        dims="level",
+        name="air",
+    )
+    print(f"read Tglobal from {tglobal_csv}")
+else:
+    ncep_url = "http://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/ncep.reanalysis.derived/"
+    ncep_air = xr.open_dataset( ncep_url + "pressure/air.mon.1981-2010.ltm.nc",
+        decode_times=xr.coders.CFDatetimeCoder(use_cftime=True))
+    #  Take global, annual average 
+    coslat = np.cos(np.deg2rad(ncep_air.lat))
+    weight = coslat / coslat.mean(dim='lat')
+    Tglobal = (ncep_air.air * weight).mean(dim=('lat','lon','time'))
+    pd.DataFrame({"level": Tglobal.level.values, "air": Tglobal.values}).to_csv(
+        tglobal_csv, index=False
+    )
+    print(f"wrote Tglobal to {tglobal_csv}")
 #  Resuable function to plot the temperature data on a Skew-T chart
 def make_skewT():
     fig = plt.figure(figsize=(9, 9))
